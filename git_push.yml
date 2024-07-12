@@ -2,15 +2,19 @@
 - name: Push files to GitHub repository
   hosts: localhost  # Assuming you run this playbook locally
 
+  vars_files:
+    - github_credentials.yml
+
   tasks:
-    #- name: Copy files to repository directory
-      #ansible.builtin.copy:
-        #src: /home/candi/hosts  # Đường dẫn tới file cần push
-          #dest: /home/candi/Demo-ansible  # Đường dẫn tới thư mục repository
-          #owner: candi
-          #group: candi
-          #mode: '0644'
-          #become: true
+    - name: Set Git credentials for HTTPS authentication
+      ansible.builtin.set_fact:
+        git_credentials: "{{ github_username }}:{{ github_password }}@github.com"
+
+    - name: Change remote URL to HTTPS with credentials
+      ansible.builtin.command: git remote set-url origin https://{{ git_credentials }}/candi2002/Demo-ansible.git
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
 
     - name: Add all files to the staging area
       ansible.builtin.command: git add .
@@ -26,13 +30,6 @@
 
     - name: Push to GitHub (main branch)
       ansible.builtin.command: git push origin main
-      args:
-        chdir: /home/candi/Demo-ansible
-      become: true
-
-    - name: Xác thực bằng username/password
-      ansible.builtin.command: >
-        git remote set-url origin https://github.com/candi2002/Demo-ansible.git
       args:
         chdir: /home/candi/Demo-ansible
       become: true
