@@ -1,0 +1,32 @@
+---
+- name: Push files to GitHub repository
+  hosts: localhost  # Assuming you run this playbook locally
+
+  tasks:
+    - name: Copy files to repository directory
+      ansible.builtin.copy:
+        src: /home/candi/hosts  # Đường dẫn tới file cần push
+        dest: /home/candi/Demo-ansible  # Đường dẫn tới thư mục repository
+        owner: candi
+        group: candi
+        mode: '0644'
+      become: true
+
+    - name: Add all files to the staging area
+      ansible.builtin.command: git add .
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+
+    - name: Commit changes
+      ansible.builtin.command: git commit -m "Add new file"
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+
+    - name: Push to GitHub (main branch)
+      ansible.builtin.command: git push origin main
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+

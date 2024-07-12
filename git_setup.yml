@@ -1,0 +1,50 @@
+---
+- name: Initialize and push repository to GitHub
+  hosts: localhost  # Assuming you run this playbook locally
+
+  tasks:
+    - name: Create README.md file
+      ansible.builtin.copy:
+        content: "# Demo-ansible\n"
+        dest: /home/candi/Demo-ansible/README.md
+        owner: candi
+        group: candi
+        mode: '0644'
+      become: true
+
+    - name: Initialize Git repository
+      ansible.builtin.command: git init
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+
+    - name: Add README.md to the staging area
+      ansible.builtin.command: git add README.md
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+
+    - name: Commit changes
+      ansible.builtin.command: git commit -m "Initial commit"
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+
+    - name: Set branch name to 'main'
+      ansible.builtin.command: git branch -M main
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+
+    - name: Add GitHub remote origin (SSH)
+      ansible.builtin.command: git remote add origin git@github.com:candi2002/Demo-ansible.git
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+
+    - name: Push to GitHub (main branch)
+      ansible.builtin.command: git push -u origin main
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
+
