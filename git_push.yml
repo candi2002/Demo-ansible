@@ -1,6 +1,6 @@
 ---
 - name: Push files to GitHub repository
-  hosts: controller  # Assuming you run this playbook locally
+  hosts: localhost  # Assuming you run this playbook locally
 
   tasks:
     #- name: Copy files to repository directory
@@ -30,3 +30,9 @@
         chdir: /home/candi/Demo-ansible
       become: true
 
+    - name: Xác thực bằng username/password
+      ansible.builtin.command: >
+        git remote set-url origin https://github.com/candi2002/Demo-ansible.git
+      args:
+        chdir: /home/candi/Demo-ansible
+      become: true
