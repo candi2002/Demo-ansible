@@ -1,6 +1,6 @@
 ---
 - name: Push files to GitHub repository
-  hosts: localhost  # Assuming you run this playbook locally
+  hosts: controller  # Assuming you run this playbook locally
 
   tasks:
     - name: Add all files to the staging area
@@ -8,6 +8,7 @@
       args:
         chdir: /home/candi/Demo-ansible
       become: true
+      
 
     - name: Commit changes
       ansible.builtin.command: git commit -m "Add new file"
