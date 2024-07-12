@@ -1,0 +1,27 @@
+---
+- name: Pull files from GitHub repository
+  hosts: controller  # Assuming you run this playbook locally
+  become: true
+  tasks:
+    - name: Ensure repository directory exists
+      ansible.builtin.file:
+        path: /home/candi/Demo-ansible  # Đường dẫn tới thư mục repository
+        state: directory
+        owner: candi
+        group: candi
+        mode: '0755'
+
+    - name: Clone the GitHub repository if not already cloned
+      ansible.builtin.git:
+        repo: git@github.com:candi2002/Demo-ansible.git  # URL của repository GitHub
+        dest: /home/candi/Demo-ansible  # Đường dẫn tới thư mục repository local
+        version: main  # Tên branch cần pull (ví dụ: main, master, ...)
+        force: yes  # Bỏ qua nếu thư mục đã tồn tại và pull lại từ remote
+      become_user: candi
+
+    - name: Pull latest changes from GitHub (main branch)
+      ansible.builtin.command:
+        cmd: git pull origin main
+        chdir: /home/candi/Demo-ansible
+      become_user: candi
+
