@@ -1,0 +1,22 @@
+
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Apache.
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apache2
+        - mysql-server
+        - php
+        - php-mysql
+    - name: Restart Apache and Mysql
+      service:
+        name: "{{item}}"
+        state:  running
+      loop:
+          - apache2
+          - mysql
