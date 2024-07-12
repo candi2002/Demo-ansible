@@ -1,6 +1,6 @@
 ---
 - name: Push files to GitHub repository
-  hosts: localhost  # Assuming you run this playbook locally
+  hosts: controller  # Assuming you run this playbook locally
 
   tasks:
     #- name: Copy files to repository directory
