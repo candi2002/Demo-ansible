@@ -3,14 +3,14 @@
   hosts: localhost  # Assuming you run this playbook locally
 
   tasks:
-    - name: Copy files to repository directory
-      ansible.builtin.copy:
-        src: /home/candi/hosts  # Đường dẫn tới file cần push
-        dest: /home/candi/Demo-ansible  # Đường dẫn tới thư mục repository
-        owner: candi
-        group: candi
-        mode: '0644'
-      become: true
+    #- name: Copy files to repository directory
+      #ansible.builtin.copy:
+        #src: /home/candi/hosts  # Đường dẫn tới file cần push
+          #dest: /home/candi/Demo-ansible  # Đường dẫn tới thư mục repository
+          #owner: candi
+          #group: candi
+          #mode: '0644'
+          #become: true
 
     - name: Add all files to the staging area
       ansible.builtin.command: git add .
