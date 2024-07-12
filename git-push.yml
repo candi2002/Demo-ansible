@@ -8,16 +8,19 @@
       args:
         chdir: /home/candi/Demo-ansible
       become: true
+      become_user: candi
 
     - name: Commit changes
-      ansible.builtin.command: git commit -m "Add new file"
+      ansible.builtin.command: git diff --quiet || git commit -m "Add new file"
       args:
         chdir: /home/candi/Demo-ansible
       become: true
+      become_user: candi
 
     - name: Push to GitHub (main branch)
       ansible.builtin.command: git push origin main
       args:
         chdir: /home/candi/Demo-ansible
       become: true
+      become_user: candi
 
