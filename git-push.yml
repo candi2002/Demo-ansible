@@ -10,8 +10,13 @@
       become: true
       become_user: candi
 
-    - name: Commit changes
-      ansible.builtin.command: git diff --quiet || git commit -m "Add new file"
+    - name: Commit changes if there are any
+      ansible.builtin.shell: |
+        if git diff --quiet; then
+          echo "No changes to commit."
+        else
+          git commit -m "Add new file"
+        fi
       args:
         chdir: /home/candi/Demo-ansible
       become: true
@@ -23,4 +28,5 @@
         chdir: /home/candi/Demo-ansible
       become: true
       become_user: candi
+
 
