@@ -23,7 +23,7 @@
       become: true
 
     - name: Install game
-      command: g++ -o /opt/snake-cpp/snake {{ path_dest }}/main.cpp
+      command: g++ -o {{ path_dest }}/snake {{ path_dest }}/main.cpp
       args:
         chdir: "{{ path_dest }}"
       become: true
