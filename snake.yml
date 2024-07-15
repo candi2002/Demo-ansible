@@ -5,6 +5,7 @@
   vars: 
     path_dest: "/opt/snake"
     path_game_local: "/home/candi/Demo-ansible/game/Cpp-Snake/main.cpp"
+
   tasks:
     - name: Install dependencies (gcc, g++)
       apt:
@@ -22,12 +23,6 @@
         group: root
         mode: '0755'
 
-    - name: Ensure the source file exists on the controller
-      stat:
-        path: "{{ path_game_local }}"
-      delegate_to: localhost
-      register: local_file
-
     - name: Copy game source code to hosts
       copy:
         src: "{{ path_game_local }}"
@@ -35,7 +30,8 @@
         owner: root
         group: root
         mode: '0644'
-      when: local_file.stat.exists
+      delegate_to: localhost  # Copy từ controller tới hosts
+      become: true
 
     - name: Verify that the main.cpp file exists on the remote hosts
       stat:
@@ -47,4 +43,3 @@
       args:
         chdir: "{{ path_dest }}"
       when: remote_file.stat.exists
-
