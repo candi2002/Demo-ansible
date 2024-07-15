@@ -3,8 +3,18 @@
   hosts: all
   vars: 
     path_dest: "/opt/snake"  
-    path_game: "~/home/candi/Demo-ansible/game/Cpp-Snake/main.cpp" 
+    path_game_local: "/home/candi/Demo-ansible/game/Cpp-Snake/main.cpp" 
   tasks:
+    - name: Copy game source code to hosts
+      copy:
+        src: "{{ path_game_local }}"
+        dest: "{{ path_dest }}/main.cpp"
+        owner: root
+        group: root
+        mode: '0644'
+      delegate_to: localhost  # Copy from controller to hosts
+      become: true
+
     - name: Create directory for Snake game
       file:
         path: "{{ path_dest }}"
@@ -12,17 +22,8 @@
         mode: '0755'
       become: true
 
-    - name: Copy game source code
-      copy:
-        src: "{{ path_game }}"
-        dest: "{{ path_dest }}/main.cpp"
-        owner: root
-        group: root
-        mode: '0644'
-      become: true
-
     - name: Install game
-      command: g++ -o {{ path_dest }}/snake {{ path_dest }}/main.cpp
+      command: g++ -o /opt/snake-cpp/snake {{ path_dest }}/main.cpp
       args:
         chdir: "{{ path_dest }}"
       become: true
