@@ -3,7 +3,7 @@
   hosts: all
   become: true
   vars: 
-    path_dest: "/opt/snake"
+    path_dest: "~/home/{{name_user}}/opt/snake"
     path_game_local: "/home/candi/Demo-ansible/game/Cpp-Snake/main.cpp"
 
   tasks:
@@ -30,7 +30,7 @@
         owner: root
         group: root
         mode: '0644'
-      delegate_to: localhost  # Copy từ controller tới hosts
+          #delegate_to: localhost  # Copy từ controller tới hosts
       become: true
 
     - name: Verify that the main.cpp file exists on the remote hosts
