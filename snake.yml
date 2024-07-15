@@ -13,14 +13,20 @@
           - g++
         state: present
         update_cache: yes
-      become: true
 
     - name: Create directory for Snake game
       file:
         path: "{{ path_dest }}"
         state: directory
+        owner: root
+        group: root
         mode: '0755'
-      become: true
+
+    - name: Ensure the source file exists on the controller
+      stat:
+        path: "{{ path_game_local }}"
+      delegate_to: localhost
+      register: local_file
 
     - name: Copy game source code to hosts
       copy:
@@ -29,11 +35,16 @@
         owner: root
         group: root
         mode: '0644'
-      delegate_to: localhost  # Copy from controller to hosts
-      become: true
+      when: local_file.stat.exists
+
+    - name: Verify that the main.cpp file exists on the remote hosts
+      stat:
+        path: "{{ path_dest }}/main.cpp"
+      register: remote_file
 
     - name: Compile game
       command: g++ -o {{ path_dest }}/snake {{ path_dest }}/main.cpp
       args:
         chdir: "{{ path_dest }}"
-      become: true
+      when: remote_file.stat.exists
+
