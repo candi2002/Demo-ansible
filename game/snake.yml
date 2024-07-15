@@ -1,0 +1,24 @@
+---
+- name: install snake and copy to other hosts
+  hosts: all
+  vars: 
+    path_dest: "opt/snake"  
+    path_game: "~/home/candi/Demo-ansible/game/Cpp-Snake/main.cpp" 
+  tasks:
+    - name: Create directory for Snake game
+      file:
+        path: /opt/snake
+        state: directory
+        mode: '0755'
+      become: true
+    - name: copy path
+      copy:
+        src: "{{path_game}}"
+        dest: path_dest
+        owner: root
+        group: root
+        mode: '0755'
+    - name: install game
+      command: g++ -o /opt/snake-cpp/snake /opt/snake-cpp/main.cpp
+      args:
+        chdir: /opt/snake-cpp

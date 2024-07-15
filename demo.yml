@@ -16,7 +16,7 @@
     - name: Restart Apache and Mysql
       service:
         name: "{{item}}"
-        state:  running
+        state:  restarted
       loop:
           - apache2
           - mysql

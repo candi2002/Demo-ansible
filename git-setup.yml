@@ -1,6 +1,6 @@
 ---
 - name: Initialize and push repository to GitHub
-  hosts: localhost  # Assuming you run this playbook locally
+  hosts: all  # Assuming you run this playbook locally
 
   tasks:
     - name: Create README.md file

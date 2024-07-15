@@ -1,8 +1,8 @@
 [controller]
-192.168.9.143 ansible_user=candi ansible_ssh_pass="candi" ansible_become_pass="candi"
+192.168.9.151 ansible_user=candi ansible_ssh_pass="candi" ansible_become_pass="candi"
 [host]
 192.168.9.141 ansible_user=host1 ansible_password="host1" ansible_become_pass="host1"
 192.168.9.145 ansible_user=host2 ansible_password="host2" ansible_become_pass="host2"
 [all:vars]
-ntp_server = 192.168.9.143
+ntp_server = 192.168.9.151
 pass_server = "candi" 

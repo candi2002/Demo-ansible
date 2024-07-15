@@ -1,13 +1,17 @@
 ---
 - name: Push files to GitHub repository
   hosts: controller  # Assuming you run this playbook locally
+  become: true
 
   tasks:
+    - name: Ensure correct permissions for the repository
+      ansible.builtin.command: chown -R candi:candi /home/candi/Demo-ansible
+      become: true
+
     - name: Add all files to the staging area
       ansible.builtin.command: git add .
       args:
         chdir: /home/candi/Demo-ansible
-      become: true
       become_user: candi
 
     - name: Commit changes if there are any
@@ -19,14 +23,11 @@
         fi
       args:
         chdir: /home/candi/Demo-ansible
-      become: true
       become_user: candi
 
     - name: Push to GitHub (main branch)
       ansible.builtin.command: git push origin main
       args:
         chdir: /home/candi/Demo-ansible
-      become: true
       become_user: candi
-
 
