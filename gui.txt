@@ -29,5 +29,83 @@ sudo my sql installation
 ->y
 sudo systemctl status mysql
 // Nếu có 2 cái màu xanh là thành công
+mysql -u root -p
+-> Nhập mật khẩu
+-> CREATE DATABASE semaphore;
+-> CREATE USER 'semaphore'@'localhost' IDENTIFIED BY 'Matkhau@123';
+//Nhập mật khẩu rtheo ý thích
+-> GRANT ALL PRIVILEGES ON semaphore.* TO 'semaphore'@'localhost';
+->EXIT;
+
+mysql -u semaphore -p
+-> SHOW DATABASES;
+// Nếu nhìn vô cái bảng thấy có 3 giá trị, và có 1 giá trị là semaphore thì là đúng rồi
+->EXIT;
+
+wget https://github.com/semaphoreui/semaphore/releases/\
+download/v2.10.18/semaphore_2.10.18_linux_amd64.deb
+
+sudo dpkg -i semaphore_2.10.18_linux_amd64.deb
+
+sudo useradd -m -d /opt/semaphore -s /bin/bash semaphore
+sudo passwd semaphore
+//Chỗ này đặt mật khẩu cho semaphore nha
+sudo  chmod 770 /opt/semaphore
+sudo groupadd ansiblegroup
+sudo gpass -M candi,semaphore ansiblegroup
+// Chỗ candi ở trên, thay bằng tên người dùng
+
+sudo su semaphore 
+//Tên người dùng đổi thành semaphore
+cd
+pwd
+//Hai lệnh trên là để chắc chắn, nếu thấy /opt/semaphore là đã vào thành công
+semaphore setup
+-> "enter"
+-> "enter"
+-> semaphore
+-> Mật khẩu semaphore của bạn, vì đã chọn strong nên phải theo đúng cú pháp
+-> "enter"
+-> /opt/semaphore
+-> "enter"
+-> yes
+-> mailrise.homelab.lan
+-> 8025
+-> semaphore@homelab.lan
+-> "enter"
+-> "enter"
+-> "enter"
+-> "enter"
+-> "enter"
+-> "enter"
+-> admin
+-> slack@mailrise.xyz
+-> Admin
+-> mật khẩu cho tài khoản semaphore, khác với mật khẩu ở trên nha
+ls -l
+//Thấy total 4 là được
+which semaphore
+//Thấy usr/bin/semaphore là được
 
 
+ansible --version
+pipx ensurepath
+exit
+sudo su semaphore 
+cd
+pwd
+//Hai lệnh trên là để chắc chắn, nếu thấy /opt/semaphore là đã vào thành công
+echo $PATH
+//nó sẽ hiện ra một mớ, k lỗi là oke
+pipx install --include-deps ansible
+ansible --version
+
+nano .ansible.cfg
+//Nội dung trong file nè
+[defaults]
+interpreter_python=auto_silent
+host_key_checking-False
+////////////////////// Lưu lại
+exit
+//Thoát ra
+sudo nano /etc/systemd/system/semaphore.service
