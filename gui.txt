@@ -109,3 +109,35 @@ host_key_checking-False
 exit
 //Thoát ra
 sudo nano /etc/systemd/system/semaphore.service
+/////////////Nội dung file nè
+[Unit]
+Description=Ansible Semaphore
+Documentation=https://docs.semui.co/
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/usr/bin/semaphore
+ConditionPathExists=/opt/semaphore/config.json
+Requires=mysql.service
+
+[Service]
+User=semaphore
+Group=semaphore
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/semaphore/.local/bin"
+Restart=always
+RestartSec=10s
+ExecStart=/usr/bin/semaphore --config=/opt/semaphore/config.json
+ExecReload=/bin/kill -HUP $$MAINPID
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=semaphore
+
+[Install]
+WantedBy=multi-user.target
+/////////////////////////////////////////////////
+
+sudo systemctl daemon-reload
+sudo systemctl enable semaphore
+sudo systemctl start semaphore
+sudo systemctl status semaphore
+
+
