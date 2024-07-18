@@ -1,0 +1,16 @@
+sudo apt update
+sudo apt install python3 git -y
+//Nếu đã cài ansible
+ansible --version
+sudo apt remove ansible -y
+
+sudo apt install pipx -y
+pipx ensurepath
+
+pipx install --include-deps ansible
+ansible --version
+
+//Tải file từ trăng web: https://dev.mysql.com/downloads/repo/apt/
+cd Downloads
+sudo dpkg -i mysql-apt-config_0.8.32-1_all.deb
+
