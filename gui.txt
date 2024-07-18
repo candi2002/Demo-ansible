@@ -10,7 +10,24 @@ pipx ensurepath
 pipx install --include-deps ansible
 ansible --version
 
-//Tải file từ trăng web: https://dev.mysql.com/downloads/repo/apt/
+//Tải file từ trang web: https://dev.mysql.com/downloads/repo/apt/
 cd Downloads
 sudo dpkg -i mysql-apt-config_0.8.32-1_all.deb
+-> OK
+sudo apt update
+sudo apt install mysql-server mysql-client -y
+-> Nhập password cho root, nên để khó 1 tí
+-> OK
+sudo my sql installation
+-> nhập password root
+-> y
+->2
+->n
+->y
+->y
+->y
+->y
+sudo systemctl status mysql
+// Nếu có 2 cái màu xanh là thành công
+
 
