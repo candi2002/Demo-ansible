@@ -19,7 +19,6 @@ sudo apt install mysql-server mysql-client -y
 -> Nhập password cho root, nên để khó 1 tí
 -> OK
 
-//Sau cái này phải tắt  rồi mở lại terminal nha!!!
 sudo mysql_secure_installation
 -> nhập password root
 -> y
@@ -40,6 +39,7 @@ mysql -u root -p
 ->EXIT;
 
 mysql -u semaphore -p
+//Chỗ này xài mật khẩu của Semaphore ở trên
 -> SHOW DATABASES;
 // Nếu nhìn vô cái bảng thấy có 3 giá trị, và có 1 giá trị là semaphore thì là đúng rồi
 ->EXIT;
@@ -54,7 +54,7 @@ sudo passwd semaphore
 //Chỗ này đặt mật khẩu cho semaphore nha
 sudo  chmod 770 /opt/semaphore
 sudo groupadd ansiblegroup
-sudo gpass -M candi,semaphore ansiblegroup
+sudo gpasswd -M candi,semaphore ansiblegroup
 // Chỗ candi ở trên, thay bằng tên người dùng
 
 sudo su semaphore 
@@ -106,7 +106,8 @@ nano .ansible.cfg
 //Nội dung trong file nè
 [defaults]
 interpreter_python=auto_silent
-host_key_checking-False
+host_key_checking=False
+
 ////////////////////// Lưu lại
 exit
 //Thoát ra
@@ -127,8 +128,8 @@ Group=semaphore
 Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/semaphore/.local/bin"
 Restart=always
 RestartSec=10s
-ExecStart=/usr/bin/semaphore --config=/opt/semaphore/config.json
-ExecReload=/bin/kill -HUP $$MAINPID
+ExecStart=/usr/bin/semaphore service --config=/opt/semaphore/config.json
+ExecReload=/bin/kill -HUP $MAINPID
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=semaphore
