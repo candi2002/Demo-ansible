@@ -6,7 +6,7 @@ sudo apt remove ansible -y
 
 sudo apt install pipx -y
 pipx ensurepath
-
+//Sau cái này phải tắt  rồi mở lại terminal nha!!!
 pipx install --include-deps ansible
 ansible --version
 
