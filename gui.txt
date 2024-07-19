@@ -30,7 +30,7 @@ sudo mysql_secure_installation
 ->y
 ->y
 sudo systemctl status mysql
-// Nếu có 2 cái màu xanh là thành công
+// Nếu có 3 cái màu xanh là thành công
 mysql -u root -p
 -> Nhập mật khẩu
 -> CREATE DATABASE semaphore;
