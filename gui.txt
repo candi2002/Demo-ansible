@@ -20,7 +20,7 @@ sudo apt install mysql-server mysql-client -y
 -> OK
 
 //Sau cái này phải tắt  rồi mở lại terminal nha!!!
-sudo mysql installation
+sudo mysql_secure_installation
 -> nhập password root
 -> y
 ->2
