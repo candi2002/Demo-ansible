@@ -18,7 +18,9 @@ sudo apt update
 sudo apt install mysql-server mysql-client -y
 -> Nhập password cho root, nên để khó 1 tí
 -> OK
-sudo my sql installation
+
+//Sau cái này phải tắt  rồi mở lại terminal nha!!!
+sudo mysql installation
 -> nhập password root
 -> y
 ->2
