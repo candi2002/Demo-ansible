@@ -144,3 +144,37 @@ sudo systemctl start semaphore
 sudo systemctl status semaphore
 
 
+
+sudo mkdir /opt/ansible
+sudo chown -R candi:ansiblegroup /opt/ansible
+sudo chmod -R 770 /opt/ansible
+cd /opt/ansible
+git init demo
+//Demo là tên cái project
+cd demo
+git branch -m main
+
+/opt/ansible/demo
+
+nano /opt/ansible/inventory
+
+sudo su semaphore
+cd
+ls -l /opt/semaphore/.ssh/
+ssh-keygen -t ed25519 -f /opt/semaphore/.ssh/id_ed25519
+chmod 600 /opt/semaphore/.ssh/id_ed25519
+ssh-copy-id -i /opt/semaphore/.ssh/id_ed25519.pub candi@192.168.9.119
+ssh -i /opt/semaphore/.ssh/id_ed25519 candi@192.168.9.119
+exit
+
+ssh-copy-id -i /opt/semaphore/.ssh/id_ed25519.pub candi@192.168.9.141
+exit 
+
+cat /opt/semaphore/.ssh/id_ed25519
+//In cái đó copy vô
+
+sudo vi /opt/ansible/inventory
+[all]
+192.168.9.119 ansible_ssh_user=candi ansible_become=yes ansible_become_user=root ansible_become_pass=candi
+192.168.9.141 ansible_ssh_user=candi ansible_become=yes ansible_become_user=root ansible_become_pass=candi
+
