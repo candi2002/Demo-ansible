@@ -175,6 +175,6 @@ cat /opt/semaphore/.ssh/id_ed25519
 
 sudo vi /opt/ansible/inventory
 [all]
-192.168.9.119 ansible_ssh_user=candi ansible_become=yes ansible_become_user=root ansible_become_pass=candi
-192.168.9.141 ansible_ssh_user=candi ansible_become=yes ansible_become_user=root ansible_become_pass=candi
+192.168.0.63 ansible_ssh_user=candi ansible_become=yes ansible_become_user=root ansible_become_pass=candi
+192.168.0.71 ansible_ssh_user=candi ansible_become=yes ansible_become_user=root ansible_become_pass=candi
 
